@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1166" height="775" viewBox="0 0 1166 775" role="img" aria-labelledby="title description">
+  <title id="title">Aggie Courses system architecture</title>
+  <desc id="description">Online filtering, hybrid retrieval, reciprocal rank fusion, feature generation, and ranking connected to offline course-data ingestion and learning-to-rank training.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#47505a"/>
+    </marker>
+    <style>
+      text { font-family: "Courier New", monospace; fill: #27302b; font-size: 15px; font-weight: 700; }
+      .small { font-size: 14px; }
+      .heading { font-size: 16px; }
+      .zone-label { font-size: 16px; }
+      .flow { fill: none; stroke: #515962; stroke-width: 1.8; marker-end: url(#arrow); }
+      .link { fill: none; stroke: #89919a; stroke-width: 1.5; stroke-dasharray: 7 4; }
+      .brace { fill: none; stroke: #515962; stroke-width: 1.6; }
+      .online-box { fill: #50c35d; stroke: #47505a; stroke-width: 1.7; rx: 4; }
+      .offline-box { fill: #65a9ef; stroke: #47505a; stroke-width: 1.7; rx: 5; }
+      .paper { fill: #fff2d6; stroke: #59616a; stroke-width: 1.7; }
+    </style>
+  </defs>
+
+  <rect x="2" y="2" width="1162" height="771" rx="10" fill="#e2f9e4" stroke="#4c555e" stroke-width="1.5"/>
+  <rect x="2" y="380" width="1162" height="393" fill="#eaf3ff" stroke="#4c555e" stroke-width="1.5"/>
+  <rect x="2" y="2" width="42" height="378" fill="#50c35d" stroke="#4c555e" stroke-width="1.5"/>
+  <rect x="2" y="380" width="42" height="393" fill="#65a9ef" stroke="#4c555e" stroke-width="1.5"/>
+  <text class="zone-label" transform="translate(29 221) rotate(-90)" text-anchor="middle">Online</text>
+  <text class="zone-label" transform="translate(29 579) rotate(-90)" text-anchor="middle">Offline</text>
+
+  <text x="170" y="61" class="heading" text-anchor="middle">1. Filtering</text>
+  <path class="brace" d="M114 86 Q114 79 122 79 H162 Q170 79 170 72 Q170 79 178 79 H220 Q228 79 228 86"/>
+  <text x="423" y="61" class="heading" text-anchor="middle">2. Retrieval</text>
+  <path class="brace" d="M283 86 Q283 79 291 79 H414 Q423 79 423 72 Q423 79 432 79 H555 Q563 79 563 86"/>
+  <text x="842" y="61" class="heading" text-anchor="middle">3. Scoring</text>
+  <path class="brace" d="M618 86 Q618 79 626 79 H833 Q842 79 842 72 Q842 79 851 79 H1059 Q1067 79 1067 86"/>
+
+  <text x="75" y="202" transform="rotate(-90 75 202)" text-anchor="middle">Query</text>
+  <path class="flow" d="M84 198 H114"/>
+  <rect class="online-box" x="114" y="156" width="114" height="84"/>
+  <text x="171" y="203" text-anchor="middle">Filter</text>
+  <path class="flow" d="M228 198 H282"/>
+
+  <rect class="online-box" x="282" y="156" width="113" height="84"/>
+  <text x="338.5" y="203" text-anchor="middle">Embed Query</text>
+  <path class="flow" d="M395 198 H423 V142 H450"/>
+  <path class="flow" d="M395 198 H423 V269 H450"/>
+
+  <rect class="online-box" x="450" y="100" width="112" height="84"/>
+  <text x="506" y="137" text-anchor="middle"><tspan x="506">Vector</tspan><tspan x="506" dy="20">Retrieval</tspan></text>
+  <rect class="online-box" x="450" y="226" width="112" height="84"/>
+  <text x="506" y="263" text-anchor="middle"><tspan x="506">BM25</tspan><tspan x="506" dy="20">Retrieval</tspan></text>
+  <path class="flow" d="M562 142 H590 V198 H618"/>
+  <path class="flow" d="M562 268 H590 V198 H618"/>
+
+  <rect class="online-box" x="618" y="156" width="113" height="84"/>
+  <text x="674.5" y="193" text-anchor="middle"><tspan x="674.5">Reciprocal</tspan><tspan x="674.5" dy="20">Rank Fusion</tspan></text>
+  <path class="flow" d="M731 198 H786"/>
+
+  <rect class="online-box" x="786" y="156" width="114" height="84"/>
+  <text x="843" y="193" text-anchor="middle"><tspan x="843">Build Item</tspan><tspan x="843" dy="20">Features</tspan></text>
+  <path class="flow" d="M900 198 H954"/>
+
+  <rect class="online-box" x="954" y="156" width="113" height="84"/>
+  <text x="1010.5" y="203" text-anchor="middle">Ranking</text>
+  <path class="flow" d="M1067 198 H1108"/>
+  <text x="1124" y="202" transform="rotate(-90 1124 202)" text-anchor="middle">Results</text>
+
+  <path class="link" d="M171 240 V442 H297"/>
+  <path class="link" d="M506 184 V407"/>
+  <path class="link" d="M506 310 V348 H590 V212"/>
+  <path class="link" d="M562 212 H590"/>
+  <path class="link" d="M843 240 V442 H717"/>
+  <path class="link" d="M1011 240 V407"/>
+
+  <path d="M297 416 Q297 407 307 407 H707 Q717 407 717 416 V465 Q717 474 707 474 H307 Q297 474 297 465 Z" fill="#ff922b" stroke="#4d555d" stroke-width="1.7"/>
+  <ellipse cx="507" cy="416" rx="210" ry="9" fill="#ff922b" stroke="#4d555d" stroke-width="1.7"/>
+  <text x="507" y="455" text-anchor="middle">Course Index</text>
+
+  <rect class="offline-box" x="297" y="505" width="126" height="85"/>
+  <text x="360" y="544" text-anchor="middle"><tspan x="360">+Embeddings</tspan><tspan x="360" dy="20">+BM25 Index</tspan></text>
+  <path class="flow" d="M360 505 V475"/>
+
+  <path class="paper" d="M325 618 H415 L396 702 H305 Z"/>
+  <text x="360" y="653" text-anchor="middle"><tspan x="360">Course</tspan><tspan x="360" dy="20">Data</tspan></text>
+  <path class="flow" d="M360 618 V590"/>
+
+  <path class="paper" d="M478 505 H569 L550 590 H459 Z"/>
+  <text x="514" y="542" text-anchor="middle"><tspan x="514">Live</tspan><tspan x="514" dy="19">Section</tspan><tspan x="514" dy="19">Data</tspan></text>
+  <path class="flow" d="M514 505 V475"/>
+
+  <path class="paper" d="M625 505 H716 L697 590 H606 Z"/>
+  <text x="661" y="533" text-anchor="middle"><tspan x="661">Historical</tspan><tspan x="661" dy="19">Section</tspan><tspan x="661" dy="19">Data</tspan></text>
+  <path class="flow" d="M661 505 V475"/>
+
+  <rect class="offline-box" x="954" y="407" width="113" height="71"/>
+  <text x="1010.5" y="431" text-anchor="middle"><tspan x="1010.5">Train</tspan><tspan x="1010.5" dy="18">Ranking</tspan><tspan x="1010.5" dy="18">model</tspan></text>
+  <path class="paper" d="M974 505 H1073 L1053 590 H955 Z"/>
+  <text x="1014" y="542" text-anchor="middle"><tspan x="1014">Relevance</tspan><tspan x="1014" dy="19">Annotations</tspan></text>
+  <path class="flow" d="M1011 505 V478"/>
+
+  <path class="brace" d="M297 716 Q297 724 305 724 H523 Q532 724 532 732 Q532 724 541 724 H758 Q766 724 766 716"/>
+  <text x="532" y="757" text-anchor="middle" class="heading">Data Ingestion</text>
+  <path class="brace" d="M947 716 Q947 724 955 724 H1002 Q1011 724 1011 732 Q1011 724 1020 724 H1059 Q1067 724 1067 716"/>
+  <text x="1007" y="757" text-anchor="middle" class="heading">Learning To Rank</text>
+</svg>

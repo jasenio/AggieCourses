@@ -1,0 +1,9 @@
+data/tamu_grade_pdfs/
+*.pyc
+__pycache__/
+.env
+artifacts/
+backups/
+.agents
+.local/
+data/local/

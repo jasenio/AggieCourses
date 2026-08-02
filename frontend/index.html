@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Texas A&amp;M Course Search and Grade Data | Aggie Courses</title>
+    <meta
+      name="description"
+      content="Browse Texas A&M courses by subject, requirement, campus, format, and level, then compare grade distributions and enrollment trends."
+    />
+    <link rel="canonical" href="/courses" />
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aggie Courses" />
+    <meta property="og:title" content="Texas A&amp;M Course Search and Grade Data | Aggie Courses" />
+    <meta
+      property="og:description"
+      content="Browse Texas A&M courses by subject, requirement, campus, format, and level, then compare grade distributions and enrollment trends."
+    />
+    <link rel="stylesheet" href="/static/theme.css?v=2" />
+    <link rel="stylesheet" href="/static/styles.css?v=105" />
+    <script>
+      // Resolve the theme before first paint so there is no flash of the wrong one.
+      (function () {
+        try {
+          var stored = localStorage.getItem("course-search-theme");
+          if (stored !== "dark" && stored !== "light") {
+            stored =
+              window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          }
+          document.documentElement.setAttribute("data-theme", stored);
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="shell">
+      <div class="page-topbar">
+        <a class="back-link" href="/">← Home</a>
+        <div class="theme-switch" data-active="light">
+          <span class="theme-switch-label" data-for="light">Light</span>
+          <button
+            type="button"
+            class="theme-toggle"
+            role="switch"
+            aria-checked="false"
+            aria-label="Dark mode"
+          >
+            <span class="theme-toggle-knob"></span>
+          </button>
+          <span class="theme-switch-label" data-for="dark">Dark</span>
+        </div>
+      </div>
+      <form id="search-form" class="search-form serp-layout">
+        <div class="serp-toolbar">
+          <p id="section-refresh-status" class="section-refresh-status" aria-live="polite" hidden></p>
+          <div class="field field-rank">
+            <span>Sort by</span>
+            <div class="custom-select" data-custom-select="rank">
+              <select id="rank" class="filter-control custom-select-source" name="rank">
+                <option value="relevance" selected>Relevance</option>
+                <option value="most_enrolled">Popularity</option>
+                <option value="gpa">GPA - Weighted</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <aside class="filter-sidebar" aria-label="Course filters">
+          <div class="basic-filters" aria-label="Basic filters">
+            <div class="field field-term">
+              <span>Offering Term</span>
+              <div class="custom-select" data-custom-select="term">
+                <select id="term" class="filter-control custom-select-source" name="term">
+                  <option value="">Total Course Catalog</option>
+                  <option value="fall" data-chip-label="Fall '26" selected>Fall '26</option>
+                  <option value="summer" data-chip-label="Summer '26">Summer '26</option>
+                  <option value="spring" data-chip-label="Spring '26">Spring '26</option>
+                </select>
+              </div>
+            </div>
+
+            <label class="field field-prefix">
+              <span>Subject</span>
+              <div class="subject-combobox">
+                <input
+                  id="prefix"
+                  class="filter-control"
+                  name="prefix"
+                  type="text"
+                  placeholder="Enter a subject code"
+                  maxlength="8"
+                  autocomplete="off"
+                  role="combobox"
+                  aria-expanded="false"
+                  aria-controls="subject-options"
+                  aria-autocomplete="list"
+                />
+                <div id="subject-options" class="subject-options filter-menu hidden" role="listbox"></div>
+              </div>
+            </label>
+
+            <details class="multi-select" id="campus-filter">
+              <summary>
+                <span>Campus</span>
+                <strong id="campus-summary" class="filter-control" data-filter-summary="location">College Station</strong>
+              </summary>
+              <div class="multi-select-options filter-menu">
+                <label><input type="checkbox" name="location" value="College Station" data-chip-label="College Station" checked /> College Station</label>
+                <label><input type="checkbox" name="location" value="McAllen" data-chip-label="McAllen" /> McAllen</label>
+                <label><input type="checkbox" name="location" value="Bryan" data-chip-label="Bryan" /> Bryan</label>
+                <label><input type="checkbox" name="location" value="Galveston" data-chip-label="Galveston" /> Galveston</label>
+                <label><input type="checkbox" name="location" value="Distance Education" data-chip-label="Distance Education" /> Distance Education</label>
+              </div>
+            </details>
+
+            <details class="advanced-filters" id="advanced-filters">
+              <summary>Advanced filters</summary>
+              <div class="advanced-filter-fields">
+                <details class="multi-select" id="format-filter">
+                  <summary>
+                    <span>Format</span>
+                    <strong class="filter-control" data-filter-summary="instruction_type" data-empty-label="Any format">Any format</strong>
+                  </summary>
+                  <div class="multi-select-options filter-menu">
+                    <label><input type="checkbox" name="instruction_type" value="Web Based" data-chip-label="Web-based" /> Web-based</label>
+                    <label><input type="checkbox" name="instruction_type" value="Traditional Face-to-Face (F2F)" data-chip-label="Traditional" /> Traditional</label>
+                    <label><input type="checkbox" name="instruction_type" value="Non-traditional" data-chip-label="Non-traditional" /> Non-traditional</label>
+                    <label><input type="checkbox" name="instruction_type" value="Internship" data-chip-label="Internship" /> Internship</label>
+                    <label><input type="checkbox" name="instruction_type" value="Co-operative Education" data-chip-label="Co-op education" /> Co-op education</label>
+                    <label><input type="checkbox" name="instruction_type" value="Study Abroad" data-chip-label="Study abroad" /> Study abroad</label>
+                    <label><input type="checkbox" name="instruction_type" value="Student Teaching" data-chip-label="Student teaching" /> Student teaching</label>
+                  </div>
+                </details>
+
+            <details class="multi-select" id="degree-level-filter">
+              <summary>
+                <span>Degree Level</span>
+                <strong class="filter-control" data-filter-summary="degree_level" data-empty-label="Any level">Any level</strong>
+              </summary>
+              <div class="multi-select-options filter-menu">
+                <label><input type="checkbox" name="degree_level" value="100" data-chip-label="100 level" /> 100 level</label>
+                <label><input type="checkbox" name="degree_level" value="200" data-chip-label="200 level" /> 200 level</label>
+                <label><input type="checkbox" name="degree_level" value="300" data-chip-label="300 level" /> 300 level</label>
+                <label><input type="checkbox" name="degree_level" value="400" data-chip-label="400 level" /> 400 level</label>
+                <label><input type="checkbox" name="degree_level" value="600" data-chip-label="600 level" /> 600 level</label>
+                <label><input type="checkbox" name="degree_level" value="700" data-chip-label="700 level" /> 700 level</label>
+                <label><input type="checkbox" name="degree_level" value="800" data-chip-label="800 level" /> 800 level</label>
+                <label><input type="checkbox" name="degree_level" value="900" data-chip-label="900 level" /> 900 level</label>
+              </div>
+            </details>
+
+            <details class="multi-select" id="core-filter">
+              <summary>
+                <span>Core Curriculum</span>
+                <strong class="filter-control" data-filter-summary="core" data-empty-label="Any area">Any core area</strong>
+              </summary>
+              <div class="multi-select-options filter-menu">
+                <label><input type="checkbox" name="core" value="Core Communication (KCOM)" data-chip-label="Communication (KCOM)" /> Communication (KCOM)</label>
+                <label><input type="checkbox" name="core" value="Core Mathematics (KMTH)" data-chip-label="Mathematics (KMTH)" /> Mathematics (KMTH)</label>
+                <label><input type="checkbox" name="core" value="Core Life/Physical Sci (KLPS)" data-chip-label="Life &amp; Physical Sciences (KLPS)" /> Life &amp; Physical Sciences (KLPS)</label>
+                <label><input type="checkbox" name="core" value="Core Lang, Phil, Culture(KLPC)" data-chip-label="Language, Philosophy &amp; Culture (KLPC)" /> Language, Philosophy &amp; Culture (KLPC)</label>
+                <label><input type="checkbox" name="core" value="Core Creative Arts (KCRA)" data-chip-label="Creative Arts (KCRA)" /> Creative Arts (KCRA)</label>
+                <label><input type="checkbox" name="core" value="Core American History (KHIS)" data-chip-label="American History (KHIS)" /> American History (KHIS)</label>
+                <label><input type="checkbox" name="core" value="Core Local Gov/Pol Sci (KPLL)" data-chip-label="Government / Political Science (KPLL/KPLF)" data-linked-core="Core Fed Gov/Pol Sci (KPLF)" /> Government / Political Science (KPLL/KPLF)</label>
+                <label><input type="checkbox" name="core" value="Core Social &amp; Beh Sci (KSOC)" data-chip-label="Social &amp; Behavioral Sciences (KSOC)" /> Social &amp; Behavioral Sciences (KSOC)</label>
+              </div>
+            </details>
+
+            <details class="multi-select" id="university-requirements-filter">
+              <summary>
+                <span>University Requirements</span>
+                <strong class="filter-control" data-filter-summary="graduation_requirement" data-empty-label="Any requirement">Any requirement</strong>
+              </summary>
+              <div class="multi-select-options filter-menu">
+                <label><input type="checkbox" name="graduation_requirement" value="Univ Req-Writing Intensive" data-chip-label="Writing Intensive" /> Writing Intensive</label>
+                <label><input type="checkbox" name="graduation_requirement" value="Univ Req-Int'l&Cult Div (KICD)" data-chip-label="International &amp; Cultural Diversity (KICD)" /> International &amp; Cultural Diversity (KICD)</label>
+                <label><input type="checkbox" name="graduation_requirement" value="Univ Req-Cult Discourse (KUCD)" data-chip-label="Cultural Discourse (KUCD)" /> Cultural Discourse (KUCD)</label>
+                <label><input type="checkbox" name="graduation_requirement" value="Univ Req-Oral Communication" data-chip-label="Oral Communication" /> Oral Communication</label>
+              </div>
+            </details>
+
+                <label class="field field-major">
+                  <span>Student Major</span>
+                  <div class="major-combobox">
+                    <input
+                      id="student-major"
+                      class="filter-control"
+                      name="student_major"
+                      type="text"
+                      placeholder="Enter a major"
+                      autocomplete="off"
+                      role="combobox"
+                      aria-expanded="false"
+                      aria-controls="major-options"
+                      aria-autocomplete="list"
+                    />
+                    <div id="major-options" class="major-options filter-menu hidden" role="listbox"></div>
+                  </div>
+                  <small class="eligibility-note">Applies major restrictions; other restrictions may apply.</small>
+                </label>
+              </div>
+            </details>
+          </div>
+        </aside>
+
+        <section class="search-panel" aria-label="Course search">
+          <div class="search-row">
+            <label class="field field-search">
+              <span>Search</span>
+              <input
+                id="query"
+                name="q"
+                type="search"
+                placeholder="Try machine learning, Texas Government, Film History, etc."
+                autocomplete="off"
+                autofocus
+              />
+            </label>
+            <button type="submit">Search</button>
+          </div>
+          <section class="active-filters hidden" id="active-filters" aria-label="Selected filters"></section>
+        </section>
+
+        <section class="status-row">
+          <p id="status">Loading courses...</p>
+          <div class="status-actions">
+            <label class="open-sections-filter" for="open-sections-only">
+              <input id="open-sections-only" type="checkbox" />
+              <span>Open sections only</span>
+            </label>
+          </div>
+        </section>
+
+        <section id="results" class="results" aria-live="polite"></section>
+        <button id="show-more" class="show-more hidden" type="button">Show more</button>
+      </form>
+    </main>
+
+    <script src="/static/theme.js?v=1"></script>
+    <script src="/static/app.js?v=71"></script>
+  </body>
+</html>

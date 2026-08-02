@@ -1,0 +1,40 @@
+# Public production site. Model-heavy maintenance and annotation routes are
+# intentionally unavailable through Caddy; internal synchronization runs
+# directly inside the app container and is unaffected.
+aggiecourses.com {
+    encode zstd gzip
+
+    handle /admin/* {
+        respond 404
+    }
+
+    handle /annotation* {
+        respond 404
+    }
+
+    handle {
+        reverse_proxy app:8000
+    }
+}
+
+www.aggiecourses.com {
+    redir https://aggiecourses.com{uri} permanent
+}
+
+# Local Docker development is exposed on the host's HTTP_PORT (80 by
+# default). Keep the same public-route boundary as the production hostname.
+http://localhost, http://127.0.0.1 {
+    encode zstd gzip
+
+    handle /admin/* {
+        respond 404
+    }
+
+    handle /annotation* {
+        respond 404
+    }
+
+    handle {
+        reverse_proxy app:8000
+    }
+}

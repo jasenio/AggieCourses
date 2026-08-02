@@ -1,0 +1,138 @@
+{
+  "schema_version": "ltr-model-v2",
+  "model_format": "xgboost-json",
+  "created_at": "2026-07-28T17:24:31.966614+00:00",
+  "annotations_file": "artifacts/human-ltr-annotations-2026-07-26-2.json",
+  "feature_schema_version": "human-ltr-v1",
+  "feature_names": [
+    "bm25_reciprocal_rank",
+    "dense_reciprocal_rank",
+    "exact_course_code_match",
+    "course_code_prefix_match",
+    "exact_course_number_match",
+    "subject_name_token_coverage",
+    "query_token_count",
+    "exact_title_match",
+    "title_token_coverage",
+    "description_token_coverage",
+    "overall_query_token_coverage",
+    "prerequisite_token_coverage",
+    "cross_listing_token_coverage",
+    "log_current_section_count",
+    "log_historical_enrollment"
+  ],
+  "excluded_features": [],
+  "training": {
+    "objective": "rank:ndcg",
+    "algorithm": "XGBoost NDCG ranker (LambdaMART)",
+    "seed": 20260726,
+    "best_iteration": 246,
+    "parameters": {
+      "n_estimators": 400,
+      "learning_rate": 0.05,
+      "max_depth": 6,
+      "min_child_weight": 1.0,
+      "reg_lambda": 1.0,
+      "monotone_constraints": {
+        "log_historical_enrollment": 1
+      }
+    },
+    "split_strategy": "238 training queries / 37 held-out queries; five-fold grouped query-level cross-validation within training",
+    "query_splits": {
+      "split_file": "artifacts/ltr/full-catalog-query-split-updated.json",
+      "train_query_count": 238,
+      "test_query_count": 37
+    },
+    "cross_validation": {
+      "folds": 5,
+      "selection_metric": "ndcg@10",
+      "selected_n_estimators": 246,
+      "folds_detail": [
+        {
+          "fold": 1,
+          "train_queries": 190,
+          "validation_queries": 48,
+          "best_iteration": 249,
+          "best_ndcg@10": 0.857525020540673
+        },
+        {
+          "fold": 2,
+          "train_queries": 190,
+          "validation_queries": 48,
+          "best_iteration": 66,
+          "best_ndcg@10": 0.8127397213038515
+        },
+        {
+          "fold": 3,
+          "train_queries": 190,
+          "validation_queries": 48,
+          "best_iteration": 355,
+          "best_ndcg@10": 0.8585827763534608
+        },
+        {
+          "fold": 4,
+          "train_queries": 191,
+          "validation_queries": 47,
+          "best_iteration": 117,
+          "best_ndcg@10": 0.8694096628100354
+        },
+        {
+          "fold": 5,
+          "train_queries": 191,
+          "validation_queries": 47,
+          "best_iteration": 243,
+          "best_ndcg@10": 0.8686749775292744
+        }
+      ]
+    },
+    "pair_counts": {
+      "train": 5950,
+      "test": 925
+    },
+    "data_augmentation": {
+      "method": "training-only empirical upper-quantile replacement",
+      "target_rows": "random-source rows with relevance below 2",
+      "feature": "log_historical_enrollment",
+      "upper_quantile": 0.75,
+      "upper_quantile_cutoff": 4.110873864173311,
+      "eligible_replacement_values": 1504,
+      "changed_training_rows": 1190,
+      "original_mean": 2.140337834699808,
+      "replacement_mean": 5.4262009305298635,
+      "replacement_min": 4.110873864173311,
+      "replacement_max": 9.129889247578555,
+      "held_out_rows_changed": 0,
+      "seed": 20260728
+    }
+  },
+  "held_out_metrics": {
+    "annotation_pool": {
+      "queries": 37,
+      "relevance_threshold": 2,
+      "ndcg@10": 0.900444,
+      "mrr@25": 0.937194,
+      "map@25": 0.844556
+    },
+    "full_catalog_ltr": {
+      "catalog_courses": 11014,
+      "queries": 37,
+      "relevance_threshold": 2,
+      "ndcg@10": 0.862515,
+      "mrr@25": 0.878153,
+      "map@25": 0.785421
+    },
+    "rrf_cross_ltr": {
+      "catalog_courses": 11014,
+      "queries": 37,
+      "relevance_threshold": 2,
+      "cross_encoder_candidates": 250,
+      "ndcg@10": 0.863232,
+      "mrr@25": 0.878153,
+      "map@25": 0.785421
+    }
+  },
+  "model_file": "random_negatives_upper_quartile_monotone-model.json",
+  "model_sha256": "0e305cde71a31e75f0b4ee0e9a025c21f457995223296829a477ea03def706ae",
+  "experiment_results_file": "results.json",
+  "full_catalog_evaluation_file": "full-catalog-results.json"
+}

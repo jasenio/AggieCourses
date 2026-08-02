@@ -1,0 +1,9 @@
+[Unit]
+Description=Refresh current course sections
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ubuntu/AggieCourses
+ExecStart=/usr/bin/docker compose exec -T app python scripts/sync_tamu_public_sections.py

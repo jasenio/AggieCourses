@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Aggie Courses | Texas A&amp;M course search</title>
+    <meta
+      name="description"
+      content="Search Texas A&M courses and compare requirements, grade distributions, enrollment trends, and professor information."
+    />
+    <link rel="canonical" href="/" />
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aggie Courses" />
+    <meta property="og:title" content="Aggie Courses | Texas A&amp;M course search" />
+    <meta
+      property="og:description"
+      content="Search Texas A&M courses and compare requirements, grade distributions, enrollment trends, and professor information."
+    />
+    <link rel="stylesheet" href="/static/theme.css?v=2" />
+    <link rel="stylesheet" href="/static/home.css?v=21" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("course-search-theme");
+          if (stored !== "dark" && stored !== "light") {
+            stored =
+              window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          }
+          document.documentElement.setAttribute("data-theme", stored);
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="home-header">
+      <div class="header-inner">
+        <a class="brand" href="/">
+          <span>Aggie</span> Courses
+        </a>
+        <div class="header-actions">
+          <div class="theme-switch" data-active="light">
+            <span class="theme-switch-label" data-for="light">Light</span>
+            <button
+              type="button"
+              class="theme-toggle"
+              role="switch"
+              aria-checked="false"
+              aria-label="Dark mode"
+            >
+              <span class="theme-toggle-knob"></span>
+            </button>
+            <span class="theme-switch-label" data-for="dark">Dark</span>
+          </div>
+          <a class="browse-link" href="/courses">Browse courses</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="home">
+      <section class="intro" aria-labelledby="page-title">
+        <h1 id="page-title">Faster Course Search.</h1>
+
+        <ul class="capabilities">
+          <li>
+            <span class="capability-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <circle cx="10.5" cy="10.5" r="6.5"></circle>
+                <path d="m15.5 15.5 4 4"></path>
+                <path d="M8 10.5h5M10.5 8v5"></path>
+              </svg>
+            </span>
+            <span>Search by subject, requirement, format, and level</span>
+          </li>
+          <li>
+            <span class="capability-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 19V10M10 19V5M16 19v-7M22 19H2"></path>
+              </svg>
+            </span>
+            <span>Compare GPA distributions and past enrollment trends</span>
+          </li>
+          <li>
+            <span class="capability-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"></path>
+                <path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"></path>
+              </svg>
+            </span>
+            <span>Explore professor, course, and section information in one place</span>
+          </li>
+        </ul>
+
+        <div class="search-panel">
+          <form class="home-search" action="/courses" method="get" role="search">
+            <div class="search-row">
+              <input
+                id="home-query"
+                name="q"
+                type="search"
+                aria-label="Search the catalog"
+                placeholder="Course code, subject, or topic"
+                autocomplete="off"
+                autofocus
+              />
+              <button type="submit">Search</button>
+            </div>
+          </form>
+
+          <div class="search-suggestions" aria-label="Suggested course searches">
+            <span class="search-suggestions-label">Try a search</span>
+            <div class="search-suggestion-list">
+              <a
+                class="search-suggestion-chip"
+                href="/courses?term=fall&amp;location=College+Station&amp;instruction_type=Web+Based&amp;core=Core+Creative+Arts+%28KCRA%29&amp;rank=gpa"
+              >easy online creative arts credit</a>
+              <a
+                class="search-suggestion-chip"
+                href="/courses?prefix=CSCE&amp;term=fall&amp;location=College+Station&amp;degree_level=400&amp;degree_level=600&amp;rank=most_enrolled"
+              >popular CSCE electives</a>
+              <a
+                class="search-suggestion-chip"
+                href="/courses?q=entrepreneurship&amp;term=fall&amp;location=College+Station&amp;degree_level=100&amp;degree_level=200&amp;rank=relevance"
+              >entrepreneurship</a>
+              <a class="search-suggestion-chip" href="/courses?q=wine+tasting">wine tasting</a>
+              <a class="search-suggestion-chip" href="/courses?q=fitness+classes">fitness classes</a>
+            </div>
+          </div>
+          <p class="search-note">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.5"></circle>
+              <path d="M5.5 20c.5-4 2.7-6 6.5-6s6 2 6.5 6"></path>
+            </svg>
+            No account required.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="home-footer">
+      <p>
+        <strong>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3 4.5 6v5.5c0 4.5 2.7 7.8 7.5 9.5 4.8-1.7 7.5-5 7.5-9.5V6z"></path>
+            <path d="M9 12h6"></path>
+          </svg>
+          Aggie Courses is student-run and is not affiliated with Texas A&amp;M
+          University.
+        </strong>
+        <strong>
+          Always confirm course details in the official catalog and Howdy
+          before registering.
+        </strong>
+      </p>
+    </footer>
+
+    <script src="/static/theme.js?v=1"></script>
+  </body>
+</html>

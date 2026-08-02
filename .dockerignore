@@ -1,0 +1,13 @@
+.git
+.agents
+.codex
+.local
+crs
+artifacts
+.env
+__pycache__
+*.pyc
+tests
+docs
+data/local
+data/tamu_grade_pdfs/**

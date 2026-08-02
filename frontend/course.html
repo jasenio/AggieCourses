@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Course Details</title>
+    <meta
+      name="description"
+      content="Review Texas A&M course details, requirements, sections, grade distributions, enrollment trends, and professor information."
+    />
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aggie Courses" />
+    <meta property="og:title" content="Texas A&amp;M Course Details | Aggie Courses" />
+    <meta
+      property="og:description"
+      content="Review Texas A&M course details, requirements, sections, grade distributions, enrollment trends, and professor information."
+    />
+    <link rel="stylesheet" href="/static/theme.css?v=2" />
+    <link rel="stylesheet" href="/static/styles.css?v=95" />
+    <script>
+      // Resolve the theme before first paint so there is no flash of the wrong one.
+      (function () {
+        try {
+          var stored = localStorage.getItem("course-search-theme");
+          if (stored !== "dark" && stored !== "light") {
+            stored =
+              window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          }
+          document.documentElement.setAttribute("data-theme", stored);
+        } catch (error) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <main class="shell course-page-shell">
+      <div class="page-topbar">
+        <a id="back-to-results" class="back-link" href="/courses">← Back to results</a>
+        <div class="theme-switch" data-active="light">
+          <span class="theme-switch-label" data-for="light">Light</span>
+          <button
+            type="button"
+            class="theme-toggle"
+            role="switch"
+            aria-checked="false"
+            aria-label="Dark mode"
+          >
+            <span class="theme-toggle-knob"></span>
+          </button>
+          <span class="theme-switch-label" data-for="dark">Dark</span>
+        </div>
+      </div>
+      <section id="course-page" class="course-page" aria-live="polite">
+        <p class="course-loading">Loading course details…</p>
+      </section>
+    </main>
+    <script src="/static/theme.js?v=1"></script>
+    <script src="/static/course.js?v=95"></script>
+  </body>
+</html>

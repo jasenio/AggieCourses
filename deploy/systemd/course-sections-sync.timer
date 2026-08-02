@@ -1,0 +1,10 @@
+[Unit]
+Description=Refresh course sections hourly
+
+[Timer]
+OnBootSec=10min
+OnCalendar=hourly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

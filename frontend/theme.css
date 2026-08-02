@@ -1,0 +1,247 @@
+/* Theme tokens. Loaded before every other stylesheet so both light and dark
+   values are defined before any rule consumes them.
+
+   The theme is driven by data-theme on <html>, set by theme.js. It is never
+   driven by prefers-color-scheme alone: the user's explicit choice has to win
+   over the OS setting, and only an attribute can express that. theme.js seeds
+   the attribute from the OS on a first visit. */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces */
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-alt: #f8fafc;
+  --surface-muted: #f2f4f7;
+
+  /* Text */
+  --text: #1f2933;
+  --text-strong: #111827;
+  --text-muted: #475467;
+  --text-subtle: #667085;
+
+  /* Lines */
+  --border: #d8dee8;
+  --border-strong: #cbd5e1;
+  --border-subtle: #eaecf0;
+
+  /* Brand and interaction */
+  --accent: #146c94;
+  --accent-hover: #0f587a;
+  --on-accent: #ffffff;
+  --link: #0b5b87;
+  --maroon: #74151d;
+
+  /* Status */
+  --success: #176b57;
+  --success-strong: #137333;
+  --danger: #b42318;
+  --warning: #a15c00;
+
+  --shadow-color: rgba(31, 41, 51, 0.08);
+  --shadow-color-strong: rgba(31, 41, 51, 0.14);
+  --focus-ring: rgba(20, 108, 148, 0.18);
+  --nav-bg: rgba(255, 255, 255, 0.92);
+  --hover-surface: #eef6f9;
+
+  /* Status tints used by section availability, GPA pills and metric cards */
+  --tint-green-bg: #e7f6ed;
+  --tint-green-border: #9bd3bd;
+  --tint-red-bg: #fdecec;
+  --tint-red-border: #efb7b7;
+  --tint-gold-bg: #fff6cc;
+  --tint-gold-border: #f1e199;
+  --tint-blue-bg: #f0f7ff;
+  --tint-blue-border: #dcecff;
+  --tint-blue-text: #1766b0;
+  --tint-purple-bg: #f1eaff;
+  --tint-purple-border: #e9ddff;
+  --tint-purple-text: #5b3a8c;
+  --tint-maroon-bg: #f8f1f1;
+  --tint-maroon-border: #e6b8bb;
+
+  /* Attribute tag families */
+  --tag-location-bg: #e8f1ff;
+  --tag-location-text: #245b9e;
+  --tag-location-border: #bdd3f2;
+  --tag-format-bg: #f1eaff;
+  --tag-format-text: #6941a5;
+  --tag-format-border: #d5c4f0;
+  --tag-ucc-bg: #ffe1e3;
+  --tag-ucc-text: #9a4d0b;
+  --tag-ucc-border: #f2c99f;
+  --tag-other-bg: #f1f3f5;
+  --tag-other-text: #4b5563;
+  --tag-other-border: #d4d8dd;
+  --tag-toggle-bg: #e7f6ed;
+  --tag-toggle-text: #176b57;
+  --tag-toggle-border: #9bd3bd;
+
+  /* Offering term families */
+  --term-spring-bg: #ddf5ee;
+  --term-spring-text: #176b57;
+  --term-spring-border: #b7e3d1;
+  --term-summer-bg: #fff0d6;
+  --term-summer-text: #8a5200;
+  --term-summer-border: #f6d79a;
+  --term-fall-bg: #fbe4dc;
+  --term-fall-text: #8b3a25;
+  --term-fall-border: #f1c7bc;
+}
+
+/* ---------- Light / dark switch ---------- */
+
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex: 0 0 auto;
+}
+
+.theme-switch-label {
+  color: var(--text-subtle);
+  font-size: 0.82rem;
+  font-weight: 800;
+  transition: color 0.18s ease;
+  user-select: none;
+}
+
+.theme-switch[data-active="light"] .theme-switch-label[data-for="light"],
+.theme-switch[data-active="dark"] .theme-switch-label[data-for="dark"] {
+  color: var(--text);
+}
+
+.theme-toggle {
+  position: relative;
+  flex: 0 0 auto;
+  width: 52px;
+  height: 28px;
+  min-height: 0;
+  border: 1px solid var(--tint-maroon-border);
+  border-radius: 999px;
+  padding: 0;
+  background: var(--tint-maroon-bg);
+  cursor: pointer;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--maroon);
+  background: var(--tint-maroon-bg);
+}
+
+.theme-toggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--maroon) 24%, transparent);
+}
+
+.theme-toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 1px 3px var(--shadow-color-strong);
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle[aria-checked="true"] {
+  border-color: var(--maroon);
+  background: var(--maroon);
+}
+
+.theme-toggle[aria-checked="true"] .theme-toggle-knob {
+  transform: translateX(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle-knob,
+  .theme-switch-label {
+    transition: none;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #0d1117;
+  --surface: #161b22;
+  --surface-alt: #1c232c;
+  --surface-muted: #232b35;
+
+  --text: #e6edf3;
+  --text-strong: #f0f6fc;
+  --text-muted: #b3bdc9;
+  --text-subtle: #8d97a3;
+
+  --border: #2d3742;
+  --border-strong: #3b4653;
+  --border-subtle: #232b34;
+
+  /* Lifted so they clear WCAG AA against the dark surfaces. */
+  --accent: #2f8fbf;
+  --accent-hover: #46a5d4;
+  --on-accent: #06121a;
+  --link: #74bde6;
+  --maroon: #e59aa1;
+
+  --success: #52c99b;
+  --success-strong: #5ed6a4;
+  --danger: #f4897f;
+  --warning: #e0a94b;
+
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --shadow-color-strong: rgba(0, 0, 0, 0.62);
+  --focus-ring: rgba(47, 143, 191, 0.38);
+  --nav-bg: rgba(22, 27, 34, 0.92);
+  --hover-surface: #1e2732;
+
+  --tint-green-bg: #142f26;
+  --tint-green-border: #235141;
+  --tint-red-bg: #3a1f1e;
+  --tint-red-border: #5e3230;
+  --tint-gold-bg: #33270f;
+  --tint-gold-border: #55411b;
+  --tint-blue-bg: #16283d;
+  --tint-blue-border: #24466b;
+  --tint-blue-text: #77b6ec;
+  --tint-purple-bg: #251c3a;
+  --tint-purple-border: #3d2f5c;
+  --tint-purple-text: #c1a6e8;
+  --tint-maroon-bg: #2e1f21;
+  --tint-maroon-border: #4d3336;
+
+  /* Tag families: deep tinted fills instead of pastels, which would glare. */
+  --tag-location-bg: #16283d;
+  --tag-location-text: #8cc0f0;
+  --tag-location-border: #24466b;
+  --tag-format-bg: #251c3a;
+  --tag-format-text: #c1a6e8;
+  --tag-format-border: #3d2f5c;
+  --tag-ucc-bg: #34211a;
+  --tag-ucc-text: #e8a877;
+  --tag-ucc-border: #55362a;
+  --tag-other-bg: #232b35;
+  --tag-other-text: #b3bdc9;
+  --tag-other-border: #38424e;
+  --tag-toggle-bg: #142f26;
+  --tag-toggle-text: #6fd3ac;
+  --tag-toggle-border: #235141;
+
+  --term-spring-bg: #142f26;
+  --term-spring-text: #6fd3ac;
+  --term-spring-border: #235141;
+  --term-summer-bg: #33270f;
+  --term-summer-text: #e8bf6a;
+  --term-summer-border: #55411b;
+  --term-fall-bg: #35211b;
+  --term-fall-text: #eda184;
+  --term-fall-border: #573630;
+}
