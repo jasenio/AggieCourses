@@ -1,11 +1,8 @@
 # AggieCourses
 
-Texas A&M lacks a fast and quality course search. The [schedule builder](https://tamu.collegescheduler.com/entry) can hardly be used for search, and the [Public Class Search](https://howdyportal.tamu.edu/uPortal/p/public-class-search-ui.ctf1/max/render.uP) leaves a lot to be desired.
+Texas A&M lacks a fast and quality course search. The [Schedule Builder](https://tamu.collegescheduler.com/entry) can hardly be used for search, and the [Public Class Search](https://howdyportal.tamu.edu/uPortal/p/public-class-search-ui.ctf1/max/render.uP) lacks many functionalities.
 
-Aggie Courses is a course search engine designed to fill this gap for exploring Texas A&M classes. It integrates information about courses, current sections, and historical data to filter out irrelevant courses while boosting relevant ones.
-
-The project focuses on balancing quality, latency, and cost of a search engine. It uses a multi-stage ranking system using BM25 full-text retrieval,
-semantic embeddings, and reranking while being regularly synced to live section data, all in a small Docker Compose deployment / instance.
+Aggie Courses is a course search engine designed to fill this gap for exploring Texas A&M classes. It integrates information about courses, current sections, and historical data to filter out irrelevant courses while boosting relevant ones. The main goal of this project is to balance quality, latency, and cost of the search engine. It uses a multi-stage ranking system with retrieval, ranking, regular data refreshes, all while operating on a lightweight Docker Compose deployment.
 
 ## Ranking Architecture
 
@@ -26,27 +23,28 @@ into a Learning-To-Rank (LTR) model trained with LambdaMART.
 
 Aggie Courses runs on the [ParadeDB](https://www.paradedb.com/) PostgreSQL distribution.
 PostgreSQL acts as the source of truth in addition to searching documents.
-This is done for both simplicity and efficiency. Operating Elasticsearch on at most 10k-20k items is overkill,
-especially when considering the extra container, memory, and syncing required.
-
+This is done for both simplicity and efficiency: operating Elasticsearch on at most 10k-20k items is overkill,
+especially when considering the extra container and syncing required.
 
 The backend is a [FastAPI](https://fastapi.tiangolo.com/) application, which is a lightweight Python backend
-framework that is compatible with the ML models.
+framework that is compatible with the ML models. Embeddings are computed with a standard bi-encoder 'sentence-transformers/all-MiniLM-L6-v2'. 
+LambdaMART is implemented with XGBoost's 'rank:ndcg' option.
 
-Embeddings are computed with a standard bi-encoder 'sentence-transformers/all-MiniLM-L6-v2'. LambdaMART is implemented
-with XGBoost's 'rank:ndcg' option.
+## Specs
 
-## Results
+Relevance judgements and queries were curated with LLM and human annotators. The table below summarizes the ranking quality and latency 
+of each stage in the ranking system.
 
-### Quality and latency
+### Quality and Latency
 
-| Pipeline | NDCG@10 | MRR@25 | MAP@25 | Recall@25 | Judged@10 | p50 | p95 | Mean |
+| Pipeline | NDCG@10 | MRR@25 | MAP@25 | Recall@25 | p50 | p95 | Mean |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| semantic 		| 0.5686 | 0.5708 | 0.4542 | 0.8324 | 0.7216 | 24.2 ms 	  | 51.4 ms    | 30.0 ms |
-| bm25 			| 0.6022 | 0.6618 | 0.5188 | 0.7770 | 0.7622 | 17.7 ms    | 39.5 ms    | 22.7 ms |
-| rrf		 	| 0.7002 | 0.7326 | 0.5768 | 0.8914 | 0.7838 | 30.8 ms 	  | 73.4 ms    | 40.4 ms |
-| rrf_ltr (production) 	| 0.7905 | 0.8529 | 0.7189 | 0.9392 | 0.6486 | 37.1 ms	  | 73.2 ms    | 43.6 ms |
+| semantic 		| 0.5686 | 0.5708 | 0.4542 | 0.8324 | 24.2 ms 	  | 51.4 ms    | 30.0 ms |
+| bm25 			| 0.6022 | 0.6618 | 0.5188 | 0.7770  | 17.7 ms    | 39.5 ms    | 22.7 ms |
+| rrf		 	| 0.7002 | 0.7326 | 0.5768 | 0.8914 | 30.8 ms 	  | 73.4 ms    | 40.4 ms |
+| **rrf_ltr (production)** 	| **0.7905** | **0.8529** | **0.7189**| **0.9392** | **37.1 ms**	  | **73.2 ms**    | **43.6 ms** |
 
+Each stage improves ranking quality at the cost of extra latency, demonstrating the quality-latency tradeoff.
 
 ## Development
 
