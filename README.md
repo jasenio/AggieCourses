@@ -17,7 +17,7 @@ Reciprocal Rank Fusion (RRF)
 3. Scoring generates item features using course text and historical section data. These features are passed
 into a Learning-To-Rank (LTR) model trained with LambdaMART.
 
-![Aggie Courses system architecture](docs/system-architecture.svg)
+![Aggie Courses system architecture](docs/retrieval_architecture.png)
 
 ## Tech Stack
 
