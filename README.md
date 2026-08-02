@@ -1,12 +1,12 @@
 # [AggieCourses](https://aggiecourses.com/)
 
-Texas A&M lacks a fast and quality course search. The [Schedule Builder](https://tamu.collegescheduler.com/entry) can hardly be used for search, and the [Public Class Search](https://howdyportal.tamu.edu/uPortal/p/public-class-search-ui.ctf1/max/render.uP) lacks many functionalities.
+Texas A&M lacks a good way to find courses. The [Schedule Builder](https://tamu.collegescheduler.com/entry) can hardly be used for search, and the [Public Class Search](https://howdyportal.tamu.edu/uPortal/p/public-class-search-ui.ctf1/max/render.uP) lacks many functionalities.
 
-Aggie Courses is a course search engine designed to fill this gap for exploring Texas A&M classes. It integrates information about courses, current sections, and historical data to filter out irrelevant courses while boosting relevant ones. The main goal of this project is to balance quality, latency, and cost of search. It uses a multi-stage ranking system with retrieval, ranking, and regular data updates, all while operating on a lightweight Docker Compose deployment.
+AggieCourses is a course search engine designed to fill this gap for exploring Texas A&M classes. It integrates information about courses, current sections, and historical data to filter out irrelevant courses while boosting relevant ones. The main goal of this project is to balance quality, latency, and cost of search. It uses a multi-stage ranking system with hourly data updates, all while operating on a lightweight Docker Compose deployment.
 
 ## Ranking Architecture
 
-Search uses a modern funnel-like architecture, enabling fast and quality search while operating on a cheap instance.
+Search uses a modern funnel-like architecture.
 
 1. Pre-filtering narrows items by course-level attributes (subject, level) and section-level attributes
 (location, availability, format).
