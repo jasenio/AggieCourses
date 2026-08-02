@@ -27,8 +27,8 @@ This is done for both simplicity and efficiency: operating Elasticsearch on at m
 especially when considering the extra container and syncing required.
 
 The backend is a [FastAPI](https://fastapi.tiangolo.com/) application, which is a lightweight Python backend
-framework that is compatible with the ML models. Embeddings are computed with a standard bi-encoder 'sentence-transformers/all-MiniLM-L6-v2'. 
-LambdaMART is implemented with XGBoost's 'rank:ndcg' option.
+framework that is compatible with the ML models. Embeddings are computed with a standard bi-encoder `sentence-transformers/all-MiniLM-L6-v2`. 
+LambdaMART is implemented with XGBoost's `rank:ndcg` option.
 
 ## Specs
 
