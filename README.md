@@ -1,4 +1,4 @@
-# AggieCourses
+# [AggieCourses](https://aggiecourses.com/)
 
 Texas A&M lacks a fast and quality course search. The [Schedule Builder](https://tamu.collegescheduler.com/entry) can hardly be used for search, and the [Public Class Search](https://howdyportal.tamu.edu/uPortal/p/public-class-search-ui.ctf1/max/render.uP) lacks many functionalities.
 
