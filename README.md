@@ -59,7 +59,7 @@ Committed catalog, section, restriction, major, and grade snapshots live in `dat
 As it stands, AggieCourses is a quick and convenient informational tool. However, We're currently working 
 on integrating a better schedule builder. That way students can search for courses that also work into their 
 schedule. We find it annoying when we search for a certain course, only to find out it 
-conflicts with my schedule.
+conflicts with my schedule. We also are looking into ways to add prior course evaluations for each course in order to help students confirm there interest in a course.
 
 If you're a student at Texas A&M or another university interested in building a similar tool, feel free to use this 
 as a resource. The code is all open-source and contributions are welcome. For questions or collaborations, you can 
